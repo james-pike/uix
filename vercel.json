@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "buildCommand": "pnpm nx build website --prod",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "outputDirectory": "dist/apps/website",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
