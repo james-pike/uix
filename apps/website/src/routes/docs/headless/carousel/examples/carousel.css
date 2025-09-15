@@ -6,15 +6,19 @@
 .carousel-slide {
   border: 2px dotted hsl(var(--primary));
   min-height: 10rem;
-  max-height: 10rem;
+  /* max-height: 10rem; */
   -webkit-user-select: none; /* support for Safari */
   user-select: none;
+}
+
+.dotted {
+  border: 2px dotted hsl(var(--primary));
 }
 
 .carousel-pagination {
   display: flex;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 0.5rem;
   border: 2px dotted hsl(var(--foreground));
   margin-top: 0.5rem;
 }

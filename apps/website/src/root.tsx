@@ -1,13 +1,7 @@
-import { component$, useContextProvider, useStore, useStyles$ } from '@builder.io/qwik';
+import { component$, isDev, useContextProvider, useStore } from '@builder.io/qwik';
 import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city';
-
-import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id';
-import { AppState } from './_state/app-state.type';
 import { RouterHead } from './components/router-head/router-head';
-import globalStyles from './global.css?inline';
-
 import { ThemeProvider } from '@qwik-ui/themes';
-
 import {
   ThemeBaseColors,
   ThemeBorderRadiuses,
@@ -16,46 +10,52 @@ import {
   ThemePrimaryColors,
   ThemeStyles,
 } from '@qwik-ui/utils';
+import { APP_STATE_CONTEXT_ID } from './_state/app-state-context-id'; // Adjust path if different
+import { AppState } from './_state/app-state.type'; // Adjust path if different
+import globalStyles from './global.css?inline';
 
 export default component$(() => {
   /**
-   * The root of a QwikCity site always start with the <QwikCityProvider> component,
+   * The root of a QwikCity site always starts with the <QwikCityProvider> component,
    * immediately followed by the document's <head> and <body>.
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
-  useStyles$(globalStyles);
 
+  // Provide AppState context (optional, included from working version)
   const appState = useStore<AppState>({
     featureFlags: {
       showStyled: true,
-      showNeumorphic: import.meta.env.DEV,
+      showNeumorphic: isDev,
     },
   });
-
   useContextProvider(APP_STATE_CONTEXT_ID, appState);
 
+  // Service worker unregistration (from working version)
   const unregisterPrefetchServiceWorkers = `
-;(function () {
-  navigator.serviceWorker?.getRegistrations().then((regs) => {
-    for (const reg of regs) {
-      if (
-        reg.active?.scriptURL.includes('service-worker.js') ||
-        reg.active?.scriptURL.includes('qwik-prefetch-service-worker.js')
-      ) {
-        reg.unregister();
-      }
-    }
-  });
-})();
-`;
+    ;(function () {
+      navigator.serviceWorker?.getRegistrations().then((regs) => {
+        for (const reg of regs) {
+          if (
+            reg.active?.scriptURL.includes('service-worker.js') ||
+            reg.active?.scriptURL.includes('qwik-prefetch-service-worker.js')
+          ) {
+            reg.unregister();
+          }
+        }
+      });
+    })();
+  `;
 
   return (
     <QwikCityProvider>
       <head>
         <meta charset="utf-8" />
-        <link rel="manifest" href="/manifest.json" />
+        {!isDev && (
+          <link rel="manifest" href={`${import.meta.env.BASE_URL}manifest.json`} />
+        )}
         <RouterHead />
+        <style>{globalStyles}</style> {/* Apply global styles */}
       </head>
       <body lang="en">
         <script dangerouslySetInnerHTML={unregisterPrefetchServiceWorkers} />

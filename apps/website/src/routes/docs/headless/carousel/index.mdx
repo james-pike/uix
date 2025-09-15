@@ -1,6 +1,33 @@
 import { statusByComponent } from '~/_state/component-statuses';
 
-import { ShowcaseHero, ShowcaseStart, ShowcaseCenter, ShowcaseEnd, ShowcaseInitial, ShowcaseReactive, ShowcaseMultipleSlides, ShowcaseVerticalDirection, ShowcaseNonDraggable, ShowcaseDifferentWidths, ShowcaseSensitivity, ShowcaseMove, ShowcaseWithoutScroller, ShowcaseConditional, ShowcaseCsr, ShowcaseMousewheel, ShowcaseRewind, ShowcasePlayer, ShowcaseTitle, ShowcaseAnimate, ShowcasePagination, ShowcaseStepper, ShowcaseStepperNoScroll, ShowcaseVerticalStepper, ShowcaseStepperPresentational, ShowcaseProgress } from './showcase-components';
+import {
+  ShowcaseHero,
+  ShowcaseStart,
+  ShowcaseCenter,
+  ShowcaseEnd,
+  ShowcaseInitial,
+  ShowcaseReactive,
+  ShowcaseMultipleSlides,
+  ShowcaseVerticalDirection,
+  ShowcaseNonDraggable,
+  ShowcaseDifferentWidths,
+  ShowcaseSensitivity,
+  ShowcaseMove,
+  ShowcaseWithoutScroller,
+  ShowcaseConditional,
+  ShowcaseCsr,
+  ShowcaseMousewheel,
+  ShowcaseRewind,
+  ShowcasePlayer,
+  ShowcaseTitle,
+  ShowcaseAnimate,
+  ShowcasePagination,
+  ShowcaseStepper,
+  ShowcaseStepperNoScroll,
+  ShowcaseVerticalStepper,
+  ShowcaseStepperPresentational,
+  ShowcaseProgress,
+} from './showcase-components';
 
 import { FeatureList } from '~/components/feature-list/feature-list';
 
@@ -109,6 +136,12 @@ Reactively control the selected slide index by using the `bind:selectedIndex` pr
 Set the `slidesPerView` prop for multiple slides.
 
 <ShowcaseMultipleSlides />
+
+#### Vertical
+
+Vertical steppers can be created by changing the markup position of the stepper.
+
+<ShowcaseVerticalStepper />
 
 ### Vertical
 
@@ -273,12 +306,6 @@ Steps can be disabled and enabled based on the index of the current slide or any
 Similar to Carousel's, steppers can be used without a scroller.
 
 <ShowcaseStepperNoScroll />
-
-#### Vertical
-
-Vertical steppers can be created by changing the markup position of the stepper.
-
-<ShowcaseVerticalStepper />
 
 #### Presentational
 
